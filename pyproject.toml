@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "airflow-jalali-cron"
+version = "0.1.0"
+description = "Apache Airflow timetable driven by a cron expression on the Jalali (Persian / Solar Hijri) calendar."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Amir Naderi", email = "amir.naderi93@gmail.com" }]
+keywords = [
+    "airflow",
+    "apache-airflow",
+    "timetable",
+    "cron",
+    "scheduler",
+    "jalali",
+    "persian",
+    "shamsi",
+    "solar-hijri",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Apache Airflow",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Scheduling",
+]
+dependencies = [
+    "apache-airflow>=2.4",
+    "jdatetime>=4.0.0",
+    "pendulum>=2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/amirnaderi93/airflow-jalali-cron"
+Repository = "https://github.com/amirnaderi93/airflow-jalali-cron"
+Issues = "https://github.com/amirnaderi93/airflow-jalali-cron/issues"
+
+# This is what makes the plugin auto-register on `pip install` — no need to
+# drop a file into $AIRFLOW_HOME/plugins.
+[project.entry-points."airflow.plugins"]
+jalali_cron = "airflow_jalali_cron.plugin:JalaliCronPlugin"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+airflow_jalali_cron = ["py.typed"]
