@@ -24,6 +24,20 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Validate PyPI trove classifiers
+        run: |
+          python -m pip install --upgrade trove-classifiers
+          python - <<'PY'
+          import sys, tomllib
+          from trove_classifiers import classifiers as valid
+          declared = tomllib.load(open("pyproject.toml", "rb"))["project"].get("classifiers", [])
+          invalid = [c for c in declared if c not in valid]
+          if invalid:
+              print("::error::Invalid trove classifier(s): " + ", ".join(invalid))
+              sys.exit(1)
+          print(f"All {len(declared)} classifiers are valid trove classifiers.")
+          PY
+
       - name: Build and check distribution
         run: |
           python -m pip install --upgrade build twine
